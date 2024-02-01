@@ -47,7 +47,7 @@ function App() {
   
   return (
     <>
-     <h1>Title: {{/*counter*/} ,count}</h1>
+     <h1>Title: {{/*counter  -> will not increment*/} ,count}</h1>
      <h2>Counter: {count}</h2>
      <button
      onClick={addValue}
