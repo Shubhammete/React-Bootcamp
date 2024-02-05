@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import './App.css'
 
 function App() {
@@ -7,6 +7,13 @@ function App() {
   const [numallowed, setNumallowed] = useState(false)
   const [charallowed, setCharallowed] = useState(false)
   const [password, setPassword] = useState("")
+
+  // useref hook
+  // The useRef hook in React is primarily used for accessing and interacting with DOM elements directly by creating there reference.
+  //  Unlike state variables (useState), the value of a useRef persists between renders and does not trigger a re-render when it changes.
+  // useRef can also be used to store previous values of props or state, allowing you to compare current and previous values within your component.
+  // When working with third-party libraries or imperative APIs that require direct access to DOM elements, useRef can be used to create references to those elements and pass them to the external APIs.
+  const passwordRef = useRef(null)
 
   let generatedPassword = useCallback(()=>{
     let pass = ""
@@ -25,8 +32,19 @@ function App() {
   // the value of length, charallowed, or numallowed changes, React will re-create the generatedPassword function to ensure it uses the latest values of these dependencies.
   // so it updates the function to latest values without rerendering
 
+  // useEffect is mainly use to render code with specific condition like mounting or anything
+  // here useeffect is used to re-render the when following dependencies change 
+  // so here it will work when we change parameters so we can see password in this
   useEffect(()=>{generatedPassword()},[length,charallowed,numallowed])
+  // It runs once in every condition so if we pass empty array it will run once
 
+
+  // function to copy the password
+  let copypasswordtoclipboard = ()=>{
+    window.navigator.clipboard.writeText(password)
+    // select the text
+    passwordRef.current.select()
+  }
   return (
     <>
       <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 bg-gray-800 text-orange-500' >
@@ -42,10 +60,14 @@ function App() {
         readOnly
         placeholder='Password'
         // onChange={(e)=>setPassword(e.target.value)}
-        className='outline-none w-full py-1 px-3'/>
+        className='outline-none w-full py-1 px-3'
+        // creating reference of useRef
+        ref={passwordRef}
+        />
 
         {/* button */}
         <button
+        onClick={copypasswordtoclipboard}
         className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
         >
           copy

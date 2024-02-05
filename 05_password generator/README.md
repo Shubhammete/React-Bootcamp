@@ -1,3 +1,9 @@
+In this project I learned about 
+- useCallback 
+- useRef
+- useEffect hooks
+- copying text to clipboard
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
