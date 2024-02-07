@@ -25,7 +25,7 @@ function App() {
     for(let i = 0; i < length;i++){
       const char = Math.floor(Math.random()*str.length + 1) // here we add one as we can get 0
       pass += str.charAt(char)
-    }
+    } 
 
     setPassword(pass)
   },[length,charallowed,numallowed])
